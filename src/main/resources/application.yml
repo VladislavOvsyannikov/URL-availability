@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: url-availability
+  datasource:
+    url: jdbc:h2:mem:db
+    username: sa
+    password: password
+  jpa:
+    open-in-view: false
+  mvc:
+    format:
+      date-time: iso
+
+server:
+  port: 8080
+
+properties:
+  timeout: 2000
+  page-size: 50

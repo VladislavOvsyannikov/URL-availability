@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:mydb
+
+properties:
+  timeout: 250
+  page-size: 10
