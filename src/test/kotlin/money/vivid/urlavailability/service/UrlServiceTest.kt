@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpMethod
-import java.util.*
 import javax.persistence.EntityNotFoundException
 
 @ExtendWith(MockitoExtension::class)
@@ -57,19 +56,19 @@ internal class UrlServiceTest {
     }
 
     @Test
-    fun disable_urlWasNotFound_exception() {
+    fun disable_activeUrlWasNotFound_exception() {
         val urlId = 101L
 
         assertThrows<EntityNotFoundException> { urlService.disable(urlId) }
     }
 
     @Test
-    fun disable_urlWasFound_disableUrl() {
+    fun disable_activeUrlWasFound_disableUrl() {
         val urlId = 102L
 
         Mockito
-            .`when`(urlRepository.findById(urlId))
-            .thenReturn(Optional.of(Url("https://example.com/", HttpMethod.HEAD, true, urlId)))
+            .`when`(urlRepository.findByIdAndActiveIsTrue(urlId))
+            .thenReturn(Url("https://example.com/", HttpMethod.HEAD, true, urlId))
 
         assertDoesNotThrow { urlService.disable(urlId) }
         Mockito.verify(urlRepository, Mockito.times(1)).save(Url("https://example.com/", HttpMethod.HEAD, false, urlId))

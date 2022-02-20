@@ -23,8 +23,8 @@ class UrlService(val urlRepository: UrlRepository) {
     }
 
     fun disable(id: Long) {
-        val url = urlRepository.findById(id)
-            .orElseThrow { EntityNotFoundException("Url with id = $id was not found") }
+        val url = urlRepository.findByIdAndActiveIsTrue(id)
+            ?: throw EntityNotFoundException("Active url with id = $id was not found")
 
         url.active = false
         urlRepository.save(url)
