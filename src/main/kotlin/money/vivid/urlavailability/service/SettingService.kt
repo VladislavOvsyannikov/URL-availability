@@ -14,7 +14,7 @@ class SettingService(val settingRepository: SettingRepository) {
 
     fun period() = setting(SettingCodes.PERIOD).value.toInt()
 
-    fun availableCodes() = setting(SettingCodes.AVAILABLE_CODES).value.split(",").map { it.toInt() }
+    fun availabilityCodes() = setting(SettingCodes.AVAILABILITY_CODES).value.split(",").map { it.toInt() }
 
     fun updatePeriod(period: Int) {
         val periodSetting = setting(SettingCodes.PERIOD)
@@ -22,15 +22,15 @@ class SettingService(val settingRepository: SettingRepository) {
         settingRepository.save(periodSetting)
     }
 
-    fun updateCodes(statuses: List<Int>) {
-        val statusesSetting = setting(SettingCodes.AVAILABLE_CODES)
+    fun updateCodes(codes: List<Int>) {
+        val codesSetting = setting(SettingCodes.AVAILABILITY_CODES)
 
-        val value = statuses
+        val value = codes
             .map { HttpStatus.valueOf(it).value() }
             .joinToString(separator = ",")
 
-        statusesSetting.value = value
-        settingRepository.save(statusesSetting)
+        codesSetting.value = value
+        settingRepository.save(codesSetting)
     }
 
     private fun setting(code: String) = settingRepository.findByCode(code)

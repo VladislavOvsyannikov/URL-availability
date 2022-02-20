@@ -26,19 +26,19 @@ class UrlAvailabilityService(
     fun checkAvailability() {
         log.info { "Availability check starts" }
 
-        val availableCodes = settingService.availableCodes()
+        val availabilityCodes = settingService.availabilityCodes()
         val pageable = PageRequest.of(0, appProperties.pageSize, Sort.by("id"))
         var page = urlService.findByActiveIsTrue(pageable)
 
         while (page.hasContent()) {
             page.content
-                .forEach { checkUrlAvailability(it, availableCodes) }
+                .forEach { checkUrlAvailability(it, availabilityCodes) }
 
             page = urlService.findByActiveIsTrue(page.pageable.next())
         }
     }
 
-    private fun checkUrlAvailability(url: Url, availableCodes: List<Int>) {
+    private fun checkUrlAvailability(url: Url, availabilityCodes: List<Int>) {
         val mono = webClient
             .method(url.method)
             .uri(url.value)
@@ -49,7 +49,7 @@ class UrlAvailabilityService(
             .map { Optional.of(it.statusCodeValue) }
             .onErrorResume(WebClientResponseException::class.java) { Mono.just(Optional.of(it.rawStatusCode)) }
             .onErrorResume(WebClientException::class.java) { Mono.just(Optional.empty()) }
-            .map { availableCodes.contains(it.orElse(null)) }
+            .map { availabilityCodes.contains(it.orElse(null)) }
             .subscribe { urlStatsService.create(it, url) }
     }
 

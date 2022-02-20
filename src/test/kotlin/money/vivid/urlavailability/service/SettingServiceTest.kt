@@ -47,18 +47,18 @@ internal class SettingServiceTest {
     }
 
     @Test
-    fun availableCodes() {
+    fun availabilityCodes() {
         Mockito
-            .`when`(settingRepository.findByCode(SettingCodes.AVAILABLE_CODES))
-            .thenReturn((Setting(SettingCodes.AVAILABLE_CODES, "200,302,403", 102)))
+            .`when`(settingRepository.findByCode(SettingCodes.AVAILABILITY_CODES))
+            .thenReturn((Setting(SettingCodes.AVAILABILITY_CODES, "200,302,403", 102)))
 
-        val availableCodes = settingService.availableCodes()
+        val availabilityCodes = settingService.availabilityCodes()
 
-        assertEquals(3, availableCodes.size)
-        assertTrue(availableCodes.contains(200))
-        assertTrue(availableCodes.contains(302))
-        assertTrue(availableCodes.contains(403))
-        Mockito.verify(settingRepository, Mockito.times(1)).findByCode(SettingCodes.AVAILABLE_CODES)
+        assertEquals(3, availabilityCodes.size)
+        assertTrue(availabilityCodes.contains(200))
+        assertTrue(availabilityCodes.contains(302))
+        assertTrue(availabilityCodes.contains(403))
+        Mockito.verify(settingRepository, Mockito.times(1)).findByCode(SettingCodes.AVAILABILITY_CODES)
     }
 
     @Test
@@ -75,12 +75,12 @@ internal class SettingServiceTest {
     @Test
     fun updateCodes() {
         Mockito
-            .`when`(settingRepository.findByCode(SettingCodes.AVAILABLE_CODES))
-            .thenReturn((Setting(SettingCodes.AVAILABLE_CODES, "200", 104)))
+            .`when`(settingRepository.findByCode(SettingCodes.AVAILABILITY_CODES))
+            .thenReturn((Setting(SettingCodes.AVAILABILITY_CODES, "200", 104)))
 
         assertDoesNotThrow { settingService.updateCodes(listOf(200, 302)) }
-        Mockito.verify(settingRepository, Mockito.times(1)).findByCode(SettingCodes.AVAILABLE_CODES)
-        Mockito.verify(settingRepository, Mockito.times(1)).save(Setting(SettingCodes.AVAILABLE_CODES, "200,302", 104))
+        Mockito.verify(settingRepository, Mockito.times(1)).findByCode(SettingCodes.AVAILABILITY_CODES)
+        Mockito.verify(settingRepository, Mockito.times(1)).save(Setting(SettingCodes.AVAILABILITY_CODES, "200,302", 104))
     }
 
 }

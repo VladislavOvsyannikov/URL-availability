@@ -25,8 +25,8 @@ class SettingController(val settingService: SettingService) {
         @Parameter(description = "Period to change") @RequestParam period: Int
     ) = settingService.updatePeriod(period)
 
-    @PutMapping("/available-codes")
-    @Operation(summary = "Change response HTTP codes which represents URL availability (default is 200)")
+    @PutMapping("/availability-codes")
+    @Operation(summary = "Change response HTTP codes which represents URL availability (default is [200])")
     fun updateCodes(
         @Parameter(description = "Codes to change") @RequestParam codes: List<Int>
     ) = settingService.updateCodes(codes)

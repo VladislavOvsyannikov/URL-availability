@@ -25,4 +25,4 @@ create table setting
 
 insert into setting(code, value)
 values ('PERIOD', '1'),
-       ('AVAILABLE_CODES', '200');
+       ('AVAILABILITY_CODES', '200');
