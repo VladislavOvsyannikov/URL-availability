@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
@@ -62,7 +63,12 @@ internal class SettingServiceTest {
     }
 
     @Test
-    fun updatePeriod() {
+    fun updatePeriod_periodLessThanOne_exception() {
+        assertThrows<IllegalArgumentException> { settingService.updatePeriod(0) }
+    }
+
+    @Test
+    fun updatePeriod_periodGreaterThanZero_successfulUpdate() {
         Mockito
             .`when`(settingRepository.findByCode(SettingCodes.PERIOD))
             .thenReturn((Setting(SettingCodes.PERIOD, "5", 103)))
@@ -73,7 +79,12 @@ internal class SettingServiceTest {
     }
 
     @Test
-    fun updateCodes() {
+    fun updateCodes_incorrectHttpCode_exception() {
+        assertThrows<IllegalArgumentException> { settingService.updateCodes(listOf(200, 123, 302)) }
+    }
+
+    @Test
+    fun updateCodes_correctHttpCodes_successfulUpdate() {
         Mockito
             .`when`(settingRepository.findByCode(SettingCodes.AVAILABILITY_CODES))
             .thenReturn((Setting(SettingCodes.AVAILABILITY_CODES, "200", 104)))

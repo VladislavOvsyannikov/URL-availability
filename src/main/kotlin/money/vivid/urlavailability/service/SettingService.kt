@@ -17,18 +17,21 @@ class SettingService(val settingRepository: SettingRepository) {
     fun availabilityCodes() = setting(SettingCodes.AVAILABILITY_CODES).value.split(",").map { it.toInt() }
 
     fun updatePeriod(period: Int) {
+        if (period < 1) {
+            throw IllegalArgumentException("Minimum allowed period value is 1")
+        }
+
         val periodSetting = setting(SettingCodes.PERIOD)
         periodSetting.value = period.toString()
         settingRepository.save(periodSetting)
     }
 
     fun updateCodes(codes: List<Int>) {
-        val codesSetting = setting(SettingCodes.AVAILABILITY_CODES)
-
         val value = codes
             .map { HttpStatus.valueOf(it).value() }
             .joinToString(separator = ",")
 
+        val codesSetting = setting(SettingCodes.AVAILABILITY_CODES)
         codesSetting.value = value
         settingRepository.save(codesSetting)
     }
