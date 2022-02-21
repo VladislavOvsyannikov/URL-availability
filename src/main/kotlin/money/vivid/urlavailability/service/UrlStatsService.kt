@@ -23,13 +23,12 @@ class UrlStatsService(val urlStatsRepository: UrlStatsRepository) {
         val existsCheck = urlStatsRepository
             .existsByUrlIdAndCreatedAtGreaterThanAndCreatedAtLessThan(urlId, start, end)
 
-        if (existsCheck.not()) {
+        if (!existsCheck) {
             throw IllegalArgumentException("No data for this URL on this time range")
         }
 
-        return existsCheck && urlStatsRepository
+        return !urlStatsRepository
             .existsByUrlIdAndCreatedAtGreaterThanAndCreatedAtLessThanAndAvailableIsFalse(urlId, start, end)
-            .not()
     }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.boot.runApplication
 @SpringBootApplication
 class UrlAvailabilityApplication
 
+@SuppressWarnings("SpreadOperator")
 fun main(args: Array<String>) {
     runApplication<UrlAvailabilityApplication>(*args)
 }

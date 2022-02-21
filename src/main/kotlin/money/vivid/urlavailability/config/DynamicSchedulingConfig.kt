@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.SchedulingConfigurer
 import org.springframework.scheduling.config.ScheduledTaskRegistrar
 import java.time.temporal.ChronoUnit
-import java.util.*
+import java.util.Date
 import java.util.concurrent.Executors
 
 @Configuration

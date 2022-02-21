@@ -91,7 +91,9 @@ internal class SettingServiceTest {
 
         assertDoesNotThrow { settingService.updateCodes(listOf(200, 302)) }
         Mockito.verify(settingRepository, Mockito.times(1)).findByCode(SettingCodes.AVAILABILITY_CODES)
-        Mockito.verify(settingRepository, Mockito.times(1)).save(Setting(SettingCodes.AVAILABILITY_CODES, "200,302", 104))
+        Mockito
+            .verify(settingRepository, Mockito.times(1))
+            .save(Setting(SettingCodes.AVAILABILITY_CODES, "200,302", 104))
     }
 
 }

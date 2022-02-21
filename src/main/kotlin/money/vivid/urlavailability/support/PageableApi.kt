@@ -23,6 +23,7 @@ import io.swagger.v3.oas.annotations.media.Schema
     name = "sort",
     array = ArraySchema(schema = Schema(type = "string")),
     `in` = ParameterIn.QUERY,
-    description = "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported"
+    description = "Sorting criteria in the format: property(,asc|desc). " +
+            "Default sort order is ascending. Multiple sort criteria are supported"
 )
-annotation class PageableApi()
+annotation class PageableApi

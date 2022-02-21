@@ -59,7 +59,8 @@ internal class UrlStatsServiceTest {
             .`when`(urlStatsRepository.existsByUrlIdAndCreatedAtGreaterThanAndCreatedAtLessThan(urlId, date, date))
             .thenReturn(true)
         Mockito
-            .`when`(urlStatsRepository.existsByUrlIdAndCreatedAtGreaterThanAndCreatedAtLessThanAndAvailableIsFalse(urlId, date, date))
+            .`when`(urlStatsRepository
+                .existsByUrlIdAndCreatedAtGreaterThanAndCreatedAtLessThanAndAvailableIsFalse(urlId, date, date))
             .thenReturn(true)
 
         assertFalse(urlStatsService.available(urlId, date, date))
@@ -80,7 +81,8 @@ internal class UrlStatsServiceTest {
             .`when`(urlStatsRepository.existsByUrlIdAndCreatedAtGreaterThanAndCreatedAtLessThan(urlId, date, date))
             .thenReturn(true)
         Mockito
-            .`when`(urlStatsRepository.existsByUrlIdAndCreatedAtGreaterThanAndCreatedAtLessThanAndAvailableIsFalse(urlId, date, date))
+            .`when`(urlStatsRepository
+                .existsByUrlIdAndCreatedAtGreaterThanAndCreatedAtLessThanAndAvailableIsFalse(urlId, date, date))
             .thenReturn(false)
 
         assertTrue(urlStatsService.available(urlId, date, date))

@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/tests")
 class TestController {
 
+    @SuppressWarnings("EmptyFunctionBlock")
     @RequestMapping("/test", method = [RequestMethod.HEAD])
-    fun test() = "test"
+    fun test() {
+    }
 
     @GetMapping("/sleep")
     fun sleep() {
-       Thread.sleep(500)
+        Thread.sleep(500)
     }
 
 }
