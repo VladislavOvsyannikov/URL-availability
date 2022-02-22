@@ -63,7 +63,7 @@ internal class UrlStatsServiceTest {
                 .existsByUrlIdAndCreatedAtGreaterThanAndCreatedAtLessThanAndAvailableIsFalse(urlId, date, date))
             .thenReturn(true)
 
-        assertFalse(urlStatsService.available(urlId, date, date))
+        assertFalse(urlStatsService.available(urlId, date, date).result)
         Mockito
             .verify(urlStatsRepository, Mockito.times(1))
             .existsByUrlIdAndCreatedAtGreaterThanAndCreatedAtLessThan(urlId, date, date)
@@ -85,7 +85,7 @@ internal class UrlStatsServiceTest {
                 .existsByUrlIdAndCreatedAtGreaterThanAndCreatedAtLessThanAndAvailableIsFalse(urlId, date, date))
             .thenReturn(false)
 
-        assertTrue(urlStatsService.available(urlId, date, date))
+        assertTrue(urlStatsService.available(urlId, date, date).result)
         Mockito
             .verify(urlStatsRepository, Mockito.times(1))
             .existsByUrlIdAndCreatedAtGreaterThanAndCreatedAtLessThan(urlId, date, date)

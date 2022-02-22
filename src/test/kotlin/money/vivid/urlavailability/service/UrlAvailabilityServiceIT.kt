@@ -38,10 +38,10 @@ internal class UrlAvailabilityServiceIT {
         Thread.sleep(750) // wait for responses
 
         assertEquals(4, urlStatsRepository.findAll().size)
-        assertTrue(urlStatsService.available(1, start, end))
-        assertFalse(urlStatsService.available(2, start, end))
-        assertFalse(urlStatsService.available(3, start, end))
-        assertFalse(urlStatsService.available(4, start, end))
+        assertTrue(urlStatsService.available(1, start, end).result)
+        assertFalse(urlStatsService.available(2, start, end).result)
+        assertFalse(urlStatsService.available(3, start, end).result)
+        assertFalse(urlStatsService.available(4, start, end).result)
         assertThrows<IllegalArgumentException> { (urlStatsService.available(5, start, end)) }
     }
 
