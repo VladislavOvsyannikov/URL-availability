@@ -50,6 +50,10 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging:2.1.21")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation("org.mockito:mockito-inline:4.3.1")
+    testImplementation("com.squareup.okhttp3:okhttp:4.9.3")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
 }
 
 tasks.withType<KotlinCompile> {
