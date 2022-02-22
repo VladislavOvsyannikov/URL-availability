@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.ArgumentMatchers.any
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
@@ -51,20 +52,24 @@ internal class UrlServiceTest {
     fun create_correctUrl_successfulCreation() {
         val request = UrlRequestDto("https://example.com/")
 
+        Mockito
+            .`when`(urlRepository.save(any()))
+            .thenReturn(Url("https://example.com/", HttpMethod.HEAD, true, 101))
+
         assertDoesNotThrow { urlService.create(request) }
         Mockito.verify(urlRepository, Mockito.times(1)).save(Url("https://example.com/", HttpMethod.HEAD, true))
     }
 
     @Test
     fun disable_activeUrlWasNotFound_exception() {
-        val urlId = 101L
+        val urlId = 102L
 
         assertThrows<EntityNotFoundException> { urlService.disable(urlId) }
     }
 
     @Test
     fun disable_activeUrlWasFound_disableUrl() {
-        val urlId = 102L
+        val urlId = 103L
 
         Mockito
             .`when`(urlRepository.findByIdAndActiveIsTrue(urlId))

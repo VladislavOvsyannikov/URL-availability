@@ -17,9 +17,10 @@ class UrlService(val urlRepository: UrlRepository) {
 
     fun findByActiveIsTrue(pageable: Pageable) = urlRepository.findByActiveIsTrue(pageable)
 
-    fun create(request: UrlRequestDto) {
+    fun create(request: UrlRequestDto): UrlDto {
         validate(request.url)
-        urlRepository.save(Url(request.url, request.httpMethod))
+        val savedUrl = urlRepository.save(Url(request.url, request.httpMethod))
+        return UrlDto(savedUrl.id, savedUrl.value, savedUrl.method)
     }
 
     fun disable(id: Long) {
